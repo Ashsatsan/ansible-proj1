@@ -90,7 +90,9 @@
 
     - name: Create Internet gateway
       ec2_vpc_igw:
-        vpc_id: "{{vpc_name}}"
+        vpc_id: "{{vpcout.vpc.id}}"
         region: "{{region}}"
         state: "{{state}}"
+        tags:
+          Name: proj-gateway
       register: igwout
