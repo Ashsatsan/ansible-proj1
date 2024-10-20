@@ -98,8 +98,8 @@
       register: igwout
 
     - name: Set up public subnet route table
-      amazon.aws.ec2_vpc_route_table:
-        vpc_id: "{{vpcout.vpc.id}}"
+      ec2_vpc_route_table:
+        vpc_id: "{{cookout.vpc.id}}"
         region: "{{region}}"
         subnets:
           - "{{ pub1out.subnet.id }}"
