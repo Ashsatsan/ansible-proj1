@@ -96,3 +96,18 @@
         tags:
           Name: proj-gateway
       register: igwout
+
+    - name: Set up public subnet route table
+      amazon.aws.ec2_vpc_route_table:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        subnets:
+          - "{{ pub1out.subnet.id }}"
+          - "{{ pub2out.subnet.id }}"
+          - "{{ pub3out.subnet.id }}"
+        routes:
+          - dest: 0.0.0.0/0
+            gateway_id: "{{ igwout.gateway_id }}"
+        tags:
+          Name: Route table for public subnets
+        register: pubRT
