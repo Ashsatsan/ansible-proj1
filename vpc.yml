@@ -110,4 +110,4 @@
             gateway_id: "{{ igwout.gateway_id }}"
         tags:
           Name: Route table for public subnets
-        register: pubRT
+      register: pubRT
