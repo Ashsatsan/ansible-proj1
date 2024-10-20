@@ -111,3 +111,25 @@
         tags:
           Name: Route table for public subnets
       register: pubRT
+
+    - name: Create new nat gateway.
+      ec2_vpc_nat_gateway:
+        state: "{{state}}"
+        subnet_id: "{{PRIVSUB1CIDR}}"
+        wait: yes
+        region: "{{region}}"
+        if_exist_do_not_create: true
+      register: nat_out
+
+    - name: Set up private subnet route table
+      ec2_vpc_route_table:
+        vpc_id: "{{vpcout.vpc.id}}"
+        region: "{{region}}"
+        subnets:
+          - "{{ priv1out.subnet.id }}"
+          - "{{ priv2out.subnet.id }}"
+          - "{{ priv3out.subnet.id }}"
+        routes:
+          - dest: 0.0.0.0/0
+            gateway_id: "{{ nat_out.gateway_id }}"
+        register: privRT
