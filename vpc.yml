@@ -99,7 +99,7 @@
 
     - name: Set up public subnet route table
       ec2_vpc_route_table:
-        vpc_id: "{{cookout.vpc.id}}"
+        vpc_id: "{{vpcout.vpc.id}}"
         region: "{{region}}"
         subnets:
           - "{{ pub1out.subnet.id }}"
