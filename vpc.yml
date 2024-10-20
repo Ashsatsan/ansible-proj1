@@ -87,3 +87,10 @@
         tags:
           Name: proj-priv3
       register: priv3out
+
+    - name: Create Internet gateway
+      ec2_vpc_igw:
+        vpc_id: "{{vpc_name}}"
+        region: "{{region}}"
+        state: "{{state}}"
+      register: igwout
