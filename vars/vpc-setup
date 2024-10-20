@@ -11,8 +11,8 @@ PRIVSUB1CIDR: "172.20.4.0/16"
 PRIVSUB2CIDR: "172.20.5.0/16"
 PRIVSUB3CIDR: "172.20.6.0/16"
 
-ZONE1: us-east-2a
-ZONE2: us-east-2b
-ZONE3: us-east-2c
+ZONE1: us-east-1a
+ZONE2: us-east-1b
+ZONE3: us-east-1c
 
 state: present
