@@ -46,11 +46,11 @@
         wait: yes
         wait_timeout: 300
         instance_tags:  # Corrected from instance_tag to instance_tags
-          Name: Bashion-proj
+          Name: "Bashion-proj"
           Owner: Devops
         exact_count: 1
         count_tag:
-          Name: Bashion-proj
+          Name: "Bashion-proj"
           Owner: Devops
         group_id: "{{ bashionSG_out.group_id }}"
       register: bashionHost_out
