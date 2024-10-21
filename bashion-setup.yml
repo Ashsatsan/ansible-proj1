@@ -24,7 +24,7 @@
       when: keyout.changed
 
     - name: Create security group rule for bashion
-      ec2_security_group:
+      community.aws.ec2_security_group:
         name: bashion-sg
         description: sg with the description
         vpc_id: "{{ vpc_id }}"
