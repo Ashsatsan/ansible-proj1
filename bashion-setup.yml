@@ -13,7 +13,6 @@
       ec2_key:
         name: bashion_key
         region: "{{ region }}"
-        no_log: true
       register: keyout
 
     - name: Store the key in the file
