@@ -24,7 +24,7 @@
       when: keyout.changed
 
     - name: Create security group rule for bashion
-      community.aws.ec2_security_group:
+      ec2_group:
         name: bashion-sg
         description: sg with the description
         vpc_id: "{{ vpc_id }}"
@@ -38,11 +38,10 @@
       register: bashionSG_out
 
     - name: Start an instance for bashion
-      ec2_instance:
-        name: bashion-instance
+      ec2:
         key_name: bashion_key  # Make sure this matches the created key name
         vpc_subnet_id: "{{ pubsub1_id }}"
-        image_id: "bashion_ami"
+        image: "bashion_ami"
         instance_type: t2.micro
         region: "{{ region }}"
         wait: yes
