@@ -42,7 +42,7 @@
         region: "{{ region }}"
         instance_type: t2.micro
         vpc_subnet_id: "{{ pubsub1_id }}"
-        image: "{{bashion_ami}}"
+        image_id: "{{bashion_ami}}"
         wait: yes
         wait_timeout: 300
         instance_tags:  # Corrected from instance_tag to instance_tags
