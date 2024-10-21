@@ -9,50 +9,50 @@
     - name: Importing the bashion variable
       include_vars: vars/bashion
 
-    - name: create a new EC2 key pair
+    - name: Create a new EC2 key pair
       ec2_key:
-         name: bashion_key
-         region: "{{region}}"
-         no_log: true
+        name: bashion_key
+        region: "{{ region }}"
+        no_log: true
       register: keyout
 
-    - name: Storing the key in the file
+    - name: Store the key in the file
       copy:
-        content: "{{keyout.key.private_key}}"
+        content: "{{ keyout.key.private_key }}"
         dest: "./bashion-key.pem"
-        mode: 0600
+        mode: '0600'
       when: keyout.changed
 
-    - name: Security group rule for bashion
+    - name: Create security group rule for bashion
       ec2_security_group:
         name: bashion-sg
         description: sg with the description
-        vpc_id: "{{vpc_id}}"
-        region: "{{region}}"
+        vpc_id: "{{ vpc_id }}"
+        region: "{{ region }}"
         rules:
           - proto: tcp
             from_port: 22
             to_port: 22
-            cidr_ip: "{{MYIP}}"
+            cidr_ip: "{{ MYIP }}"
             rule_desc: allow 22 from myip
-        register: bashionSG_out
+      register: bashionSG_out
 
-    - name: start an instance for bashion
+    - name: Start an instance for bashion
       ec2_instance:
         name: bashion-instance
-        key_name: proj-key
-        vpc_subnet_id: "{{pubsub1_id}}"
+        key_name: bashion_key  # Make sure this matches the created key name
+        vpc_subnet_id: "{{ pubsub1_id }}"
         image_id: "bashion_ami"
         instance_type: t2.micro
-        region: "{{region}}"
+        region: "{{ region }}"
         wait: yes
         wait_timeout: 300
-        instance_tag:
+        instance_tags:  # Corrected from instance_tag to instance_tags
           Name: Bashion-proj
           Owner: Devops
-        group_id: "{{bashionSG_out.group.id}}"
+        group_id: "{{ bashionSG_out.group.id }}"
         exact_count: 1
         count_tag:
           Name: Bashion-proj
           Owner: Devops
-        register: bashionHost_out
+      register: bashionHost_out
