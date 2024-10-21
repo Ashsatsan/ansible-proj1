@@ -148,3 +148,23 @@
         - nat_out.nat_gateway_id
         - pubRT.route_table.id
         - privRT.route_table.id
+
+    - name: Set facts for VPC and Subnet IDs
+      set_fact:
+        vpc_id: "{{ vpcout.vpc.id }}"
+        pubsub1_id: "{{ pub1out.subnet.id }}"
+        pubsub2_id: "{{ pub2out.subnet.id }}"
+        pubsub3_id: "{{ pub3out.subnet.id }}"
+        privsub1_id: "{{ priv1out.subnet.id }}"
+        privsub2_id: "{{ priv2out.subnet.id }}"
+        privsub3_id: "{{ priv3out.subnet.id }}"
+        igw_id: "{{ igwout.gateway_id }}"
+        nat_gateway_id: "{{ nat_out.nat_gateway_id }}"
+        pub_rt_id: "{{ pubRT.route_table.id }}"
+        priv_rt_id: "{{ privRT.route_table.id }}"
+        cacheable: yes
+
+    - name: Copying the variables into the file
+      copy:
+        content: "vpc_id: {{ vpcout.vpc.id }}\npubsub1_id: {{ pub1out.subnet.id }}\npubsub2_id: {{ pub2out.subnet.id }}\npubsub3_id: {{ pub3out.subnet.id }}\nprivsub1_id: {{ priv1out.subnet.id }}\nprivsub2_id: {{ priv2out.subnet.id }}\nprivsub3_id: {{ priv3out.subnet.id }}\nigw_id: {{ igwout.gateway_id }}\nnat_gateway_id: {{ nat_out.nat_gateway_id }}\npub_rt_id: {{ pubRT.route_table.id }}\npriv_rt_id: {{ privRT.route_table.id }}"
+        dest: vars/outputs
