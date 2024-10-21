@@ -35,23 +35,23 @@
             to_port: 22
             cidr_ip: "{{ MYIP }}"
             rule_desc: allow 22 from myip
-        register: bashionSG_out
+      register: bashionSG_out
 
     - name: Start an instance for bashion
       ec2:
         key_name: bashion_key  # Make sure this matches the created key name
+        region: "{{ region }}"
+        instance_type: t2.micro
         vpc_subnet_id: "{{ pubsub1_id }}"
         image: "{{bashion_ami}}"
-        instance_type: t2.micro
-        region: "{{ region }}"
         wait: yes
         wait_timeout: 300
         instance_tags:  # Corrected from instance_tag to instance_tags
           Name: Bashion-proj
           Owner: Devops
-        group_id: "{{ bashionSG_out.group.id }}"
         exact_count: 1
         count_tag:
           Name: Bashion-proj
           Owner: Devops
-        register: bashionHost_out
+        group_id: "{{ bashionSG_out.group_id }}"
+      register: bashionHost_out
