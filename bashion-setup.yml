@@ -35,7 +35,7 @@
             to_port: 22
             cidr_ip: "{{ MYIP }}"
             rule_desc: allow 22 from myip
-      register: bashionSG_out
+        register: bashionSG_out
 
     - name: Start an instance for bashion
       ec2:
@@ -54,4 +54,4 @@
         count_tag:
           Name: Bashion-proj
           Owner: Devops
-      register: bashionHost_out
+        register: bashionHost_out
