@@ -38,7 +38,7 @@
       register: bashionSG_out
 
     - name: Start an instance for bashion
-      ec2:
+      ec2_instance:
         key_name: bashion_key  # Make sure this matches the created key name
         region: "{{ region }}"
         instance_type: t2.micro
