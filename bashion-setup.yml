@@ -41,6 +41,10 @@
         var: bashionSG_out
 
 
+    - name: Debug AMI variable
+      debug:
+        msg: "bashion_ami is set to: {{ bashion_ami }}"
+
     - name: Creating Bashion Host  # Adding "name" field
       ec2_instance:
         key_name: bashion_key  # Make sure this matches the created key name
@@ -59,7 +63,3 @@
           Owner: Devops
         group_id: "{{ bashionSG_out.group.id if bashionSG_out is defined and 'group' in bashionSG_out else 'default' }}"
       register: bashionHost_out
-
-    - name: Debug AMI variable
-      debug:
-        msg: "bashion_ami is set to: {{ bashion_ami }}"
