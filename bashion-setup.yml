@@ -61,5 +61,5 @@
         count_tags:
           Name: "Bashion-proj"
           Owner: Devops
-        group_id: "{{ bashionSG_out.group.id if bashionSG_out is defined and 'group' in bashionSG_out else 'default' }}"
+        group_id: "{{ bashionSG_out.group_id }}"
       register: bashionHost_out
