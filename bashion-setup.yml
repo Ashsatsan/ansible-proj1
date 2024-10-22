@@ -45,7 +45,7 @@
         msg: "bashion_ami is set to: {{ bashion_ami }}"
 
     - name: Creating Bashion Host  # Adding "name" field
-      ec2_instance:
+      ec2:
         key_name: bashion_key  # Ensure this matches the created key name
         region: "{{ region }}"  # Ensure the region variable is defined
         instance_type: t2.micro
