@@ -1,0 +1,246 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Importing the variables file
+      include_vars: vars/outputs
+
+    - name: Importing the bashion variable
+      include_vars: vars/proj_stack
+
+    - name: Create a new EC2 key pair
+      ec2_key:
+        name: stack_key
+        region: "{{ region }}"
+      register: keyout
+
+    - name: Store the key in the file
+      copy:
+        content: "{{ keyout.key.private_key }}"
+        dest: "./stack_key.pem"
+        mode: '0600'
+      when: keyout.changed
+
+    - name: Create security group rule for elb
+      ec2_group:
+        name: proj-elb
+        description: leb with the description
+        region: "{{ region }}"
+        vpc_id: "{{ vpc_id }}"
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: [0.0.0.0/0]
+            rule_desc: allow 80 to anywhere
+
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: "{{bashionSG}}"
+        register: elbSG_out
+
+    - name: Create security group rule for proj-stack
+      ec2_group:
+        name: proj-stack-sg
+        description: proj-stack with the description
+        region: "{{ region }}"
+        vpc_id: "{{ vpc_id }}"
+        rules:
+          - proto: tcp
+            from_port: 80
+            to_port: 80
+            cidr_ip: "0.0.0.0/0"  # Use string instead of list
+            rule_desc: allow 80 to anywhere
+
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: "{{ bashionSG }}"  # Ensure this variable is defined
+            rule_desc: allow 22 to bashion
+      register: projSG_out
+
+    - name: Updating the proj-stack to connect with themselves
+      ec2_group:
+        name: proj-stack-sg
+        rules:
+          - proto: all
+            from_port: 0  # Use appropriate port for 'all' protocol
+            to_port: 65535  # Use appropriate port for 'all' protocol
+            cidr_ip: "{{ projSG_out.group_id }}"  # This should be the correct CIDR or internal range
+            rule_desc: allow within each other
+
+    - name: Creating RMQ Host  # Adding "name" field
+      ec2:
+        key_name: stack_key  # Ensure this matches the created key name
+        region: "{{ region }}"  # Ensure the region variable is defined
+        instance_type: t2.micro
+        vpc_subnet_id: "{{ privsub1_id }}"  # Ensure this variable is defined
+        image_id: "{{rmq_ami}}"  # Make sure this AMI ID is valid in the specified region
+        wait: yes
+        wait_timeout: 300
+        instance_tags: # Corrected from instance_tag to instance_tags
+          Name: "rmq"
+          Owner: Devops
+        exact_count: 1
+        count_tags:
+          Name: "rmq"
+          Owner: Devops
+        group_id: "{{ projSG_out.group_id }}"  # Ensure this variable is defined
+      register: rmq_out
+
+    - name: Creating web Host for nginx  # Adding "name" field
+      ec2:
+        key_name: stack_key  # Ensure this matches the created key name
+        region: "{{ region }}"  # Ensure the region variable is defined
+        instance_type: t2.micro
+        vpc_subnet_id: "{{ privsub1_id }}"  # Ensure this variable is defined
+        image_id: "{{nginx_ami}}"  # Make sure this AMI ID is valid in the specified region
+        wait: yes
+        wait_timeout: 300
+        instance_tags: # Corrected from instance_tag to instance_tags
+          Name: "web"
+          Owner: Devops
+        exact_count: 1
+        count_tags:
+          Name: "web"
+          Owner: Devops
+        group_id: "{{ projSG_out.group_id }}"  # Ensure this variable is defined
+      register: web_out
+
+    - name: Creating db Host  # Adding "name" field
+      ec2:
+        key_name: stack_key  # Ensure this matches the created key name
+        region: "{{ region }}"  # Ensure the region variable is defined
+        instance_type: t2.micro
+        vpc_subnet_id: "{{ privsub3_id }}"  # Ensure this variable is defined
+        image_id: "{{proj_stack_ami}}"  # Make sure this AMI ID is valid in the specified region
+        wait: yes
+        wait_timeout: 300
+        instance_tags: # Corrected from instance_tag to instance_tags
+          Name: "db"
+          Owner: Devops
+        exact_count: 1
+        count_tags:
+          Name: "db"
+          Owner: Devops
+        group_id: "{{ projSG_out.group_id }}"  # Ensure this variable is defined
+      register: db_out
+
+    - name: Creating memcache Host  # Adding "name" field
+      ec2:
+        key_name: stack_key  # Ensure this matches the created key name
+        region: "{{ region }}"  # Ensure the region variable is defined
+        instance_type: t2.micro
+        vpc_subnet_id: "{{ privsub1_id }}"  # Ensure this variable is defined
+        image_id: "{{memcached_ami}}"  # Make sure this AMI ID is valid in the specified region
+        wait: yes
+        wait_timeout: 300
+        instance_tags: # Corrected from instance_tag to instance_tags
+          Name: "memcached"
+          Owner: Devops
+        exact_count: 1
+        count_tags:
+          Name: "memcached"
+          Owner: Devops
+        group_id: "{{ projSG_out.group_id }}"  # Ensure this variable is defined
+      register: memcached_out
+
+
+    - name: Creating tomcat app Host  # Adding "name" field
+      ec2:
+        key_name: stack_key  # Ensure this matches the created key name
+        region: "{{ region }}"  # Ensure the region variable is defined
+        instance_type: t2.micro
+        vpc_subnet_id: "{{ privsub1_id }}"  # Ensure this variable is defined
+        image_id: "{{app_ami}}"  # Make sure this AMI ID is valid in the specified region
+        wait: yes
+        wait_timeout: 300
+        instance_tags: # Corrected from instance_tag to instance_tags
+          Name: "app"
+          Owner: Devops
+        exact_count: 1
+        count_tags:
+          Name: "app"
+          Owner: Devops
+        group_id: "{{ projSG_out.group_id }}"  # Ensure this variable is defined
+      register: app_out
+
+    - name: elastic loadbalancer
+      elb_classic_lb:
+        name: "proj-elb"
+        scheme: internal
+        state: "{{state}}"
+        instance_ids:
+          - "{{web_out.instance_ids}}"
+        purge_instance_ids: true
+        subnets:
+          - "{{pubsub1_id}}"
+          - "{{pubsub2_id}}"
+        listeners:
+          - protocol: http # options are http, https, ssl, tcp
+            load_balancer_port: 80
+            instance_port: 80
+
+    - name: Storing the private key for services in provisioned file
+      blockfile:
+          path: provision-stack/group_vars/hostsip
+          block: |
+            web_ip: {{ web_out.tagged_instances[0].private_ip }}
+            app_ip: {{ app_out.tagged_instance[0].private_ip }}
+            db_ip: {{ db_out.tagged_instance[0].private_ip }}
+            memccached_ip: {{ memcached_out.tagged_instance[0].private_ip }}
+            rmq_ip: {{ rmq_out.tagged_instance[0].private_ip }}
+            
+    - name: Copying the login key into the provision_Stack
+      copy:
+        src: stack_key.pem
+        dest: provision-stack/login_key.pem
+        mode: 0600
+
+    - name: updating and storing it in the inventory file
+      blockfile:
+        path: provision-stack/group_vars/inventory.yml
+        block: |
+          web ansible_host={{ web_out.tagged_instance[0].private_ip }}
+          app ansible_host={{ app_out.tagged_instance[0].private_ip }}
+          memached ansible_host={{ memcahed_out.tagged_instance[0].private_ip }}
+          rmq ansible_host={{ rmq_out.tagged_instance[0].private_ip }}
+          db ansible_host={{ db_out.tagged_instance[0].private_ip }}
+          control ansible_host={{ control_out.tagged_instance[0].private_ip }}
+          
+          [websrvgrp]
+          web
+          
+          [appsrvgrp]
+          app
+          
+          [memcached]
+          memcached
+          
+          [rmqsrvgrp]
+          rmq
+          
+          [dbsrvgrp]
+          db
+          
+          [controlsrvgrp]
+          control
+          
+          [stack_instance:children]
+          websrvgrp
+          appsrvgrp
+          memcached
+          rmqsrvgrp
+          dbsrvgrp
+          controlsrvgrp
+          
+          [stack_instance:vars]
+          ansible_user = ubuntu
+          ansible_ssh_private_key_file = stack_key.pem
+          ansible_python_interpreter = /usr/bin/python3
+           
+          
+        
+    
+        

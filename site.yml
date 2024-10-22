@@ -1,0 +1,5 @@
+---
+
+import_playbook: proj-stack-setup.yml
+import_playbook: bashion-setup.yml
+

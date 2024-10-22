@@ -62,3 +62,8 @@
           Owner: Devops
         group_id: "{{ bashionSG_out.group_id }}"  # Ensure this variable is defined
       register: bashionHost_out
+
+    - name: Pasting the bashion sg into the output file
+      copy:
+        content: "bashionSG: {{bashionSG_out.group_id}}"
+        dest: vars/outputs
