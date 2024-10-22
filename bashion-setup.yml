@@ -60,3 +60,6 @@
         group_id: "{{ bashionSG_out.group.id if bashionSG_out is defined and 'group' in bashionSG_out else 'default' }}"
       register: bashionHost_out
 
+    - name: Debug AMI variable
+      debug:
+        msg: "bashion_ami is set to: {{ bashion_ami }}"
