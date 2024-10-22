@@ -51,7 +51,7 @@
         region: "{{ region }}"
         instance_type: t2.micro
         vpc_subnet_id: "{{ pubsub1_id }}"
-        image: "ami-07ee04759daf109de"
+        image_id: "ami-07ee04759daf109de"
         wait: yes
         wait_timeout: 300
         instance_tags:  # Corrected from instance_tag to instance_tags
