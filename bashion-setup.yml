@@ -40,28 +40,25 @@
       debug:
         var: bashionSG_out
 
-
     - name: Debug AMI variable
       debug:
         msg: "bashion_ami is set to: {{ bashion_ami }}"
 
-
     - name: Creating Bashion Host  # Adding "name" field
       ec2_instance:
-       key_name: bashion_key  # Ensure this matches the created key name
-       region: "{{ region }}"  # Ensure the region variable is defined
-       instance_type: t2.micro
-       vpc_subnet_id: "{{ pubsub1_id }}"  # Ensure this variable is defined
-       image_id: "ami-011079f19d63f2405"  # Make sure this AMI ID is valid in the specified region
-       wait: yes
-       wait_timeout: 300
-       instance_tags:  # Corrected from instance_tag to instance_tags
-         Name: "Bashion-proj"
-         Owner: Devops
-       exact_count: 1
-       count_tags:
-         Name: "Bashion-proj"
-         Owner: Devops
-       group_id: "{{ bashionSG_out.group_id }}"  # Ensure this variable is defined
-       register: bashionHost_out
-
+        key_name: bashion_key  # Ensure this matches the created key name
+        region: "{{ region }}"  # Ensure the region variable is defined
+        instance_type: t2.micro
+        vpc_subnet_id: "{{ pubsub1_id }}"  # Ensure this variable is defined
+        image_id: "ami-011079f19d63f2405"  # Make sure this AMI ID is valid in the specified region
+        wait: yes
+        wait_timeout: 300
+        instance_tags:  # Corrected from instance_tag to instance_tags
+          Name: "Bashion-proj"
+          Owner: Devops
+        exact_count: 1
+        count_tags:
+          Name: "Bashion-proj"
+          Owner: Devops
+        group_id: "{{ bashionSG_out.group_id }}"  # Ensure this variable is defined
+      register: bashionHost_out
