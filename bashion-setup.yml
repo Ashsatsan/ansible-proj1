@@ -66,10 +66,77 @@
       debug:
         var: bashionSG_out
 
-    - name: Append/Update Bashion SG and Host details to output file
-      blockinfile:
-        path: vars/outputs
-        backup: yes
-        block: |
-           BashionSGid: {{ bashionSG_out.group_id }}
-        when: bastionSG_out is defined
+    - hosts: localhost
+      connection: local
+      gather_facts: no
+      tasks:
+
+        - name: Importing the variables file
+          include_vars: vars/outputs
+
+        - name: Importing the bashion variable
+          include_vars: vars/vpc-setup
+
+        - name: Create a new EC2 key pair
+          ec2_key:
+            name: bashion_key
+            region: "{{ region }}"
+          register: keyout
+
+        - name: Store the key in the file
+          copy:
+            content: "{{ keyout.key.private_key }}"
+            dest: "./bashion-key.pem"
+            mode: '0600'
+          when: keyout.changed
+
+        - name: Create security group rule for bashion
+          ec2_group:
+            name: bashion-sg
+            description: sg with the description
+            region: "{{ region }}"
+            vpc_id: "{{ vpc_id }}"
+            rules:
+              - proto: tcp
+                from_port: 22
+                to_port: 22
+                cidr_ip: "{{ MYIP }}"
+                rule_desc: allow 22 from myip
+          register: bashionSG_out
+
+        - name: Debug security group output
+          debug:
+            var: bashionSG_out
+
+        - name: Debug AMI variable
+          debug:
+            msg: "bashion_ami is set to: {{ bashion_ami }}"
+
+        - name: Creating Bashion Host
+          amazon.aws.ec2_instance:
+            key_name: bashion_key  # Ensure this matches the created key name
+            region: "{{ region }}"  # Ensure the region variable is defined
+            instance_type: t2.micro
+            image_id: "{{ bashion_ami }}"  # Make sure this AMI ID is valid in the specified region
+            wait: yes
+            wait_timeout: 300
+            tags: # Use 'tags' instead of 'instance_tags'
+              Name: "Bashion-proj"
+              Owner: "Devops Team"
+            exact_count: 1
+            security_groups: # Specify your security groups here
+              - "{{ bashionSG_out.group_id }}"  # Ensure this variable is defined
+            vpc_subnet_id: "{{ pubsub1_id }}"  # Ensure this variable is defined
+          register: bashionHost_out
+
+
+
+
+
+        - name: Append/Update Bashion SG and Host details to output file
+          blockinfile:
+            path: vars/outputs
+            backup: yes
+            block: |
+              BastionSGid: {{bastionSG_out.group_id}}
+            when: bastionSG_out is defined
