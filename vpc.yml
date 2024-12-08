@@ -152,4 +152,4 @@
           igw_id: {{ igwout.gateway_id }}
           pub_rt_id: {{ pubRT.route_table.id }}
         dest: vars/outputs
-
+        mode: '0644'
