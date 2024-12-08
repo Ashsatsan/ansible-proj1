@@ -140,9 +140,7 @@
         privsub2_id: "{{ priv2out.subnet.id }}"
         privsub3_id: "{{ priv3out.subnet.id }}"
         igw_id: "{{ igwout.gateway_id }}"
-        nat_gateway_id: "{{ nat_out.nat_gateway_id }}"
         pub_rt_id: "{{ pubRT.route_table.id }}"
-        priv_rt_id: "{{ privRT.route_table.id }}"
         cacheable: yes
 
     - name: Copying the variables into the file
@@ -156,8 +154,6 @@
           privsub2_id: {{ priv2out.subnet.id }}
           privsub3_id: {{ priv3out.subnet.id }}
           igw_id: {{ igwout.gateway_id }}
-          nat_gateway_id: {{ nat_out.nat_gateway_id }}
           pub_rt_id: {{ pubRT.route_table.id }}
-          priv_rt_id: {{ privRT.route_table.id }}
         dest: vars/outputs
 
