@@ -36,35 +36,31 @@
             rule_desc: allow 22 from myip
       register: bashionSG_out
 
-    - name: Print bashion_ami variable
+    - name: Print bashion_ami variable && security group
       debug:
-        msg: "{{ bashion_ami }}"
+        msg:
+          - "bashion_ami: {{ bashion_ami }}"
+          - "bastionSG_out.group_id: {{ bastionSG_out.group_id }}"
 
 
     - name: Creating Bashion Host
       amazon.aws.ec2_instance:
         key_name: bashion_key  # Ensure this matches the created key name
-        region: "{{region}}"  # Ensure the region variable is defined
+        region: "{{ region }}"  # Ensure the region variable is defined
         instance_type: t2.micro
-        image_id: "{{bashion_ami}}"  # Make sure this AMI ID is valid in the specified region
+        image_id: "{{ bashion_ami }}"  # Make sure this AMI ID is valid in the specified region
         wait: yes
         wait_timeout: 300
-        instance_tags: # Corrected from instance_tag to instance_tags
+        tags: # Use 'tags' instead of 'instance_tags'
           Name: "Bashion-proj"
-          Owner: Devops Team
+          Owner: "Devops Team"
         exact_count: 1
-        count_tag:
-          Name: "Bashion-proj"
-          Project: Projans
-          Owner: Devops Team
-        group_id: "{{ bashionSG_out.group_id }}"  # Ensure this variable is defined
+        security_groups: # Specify your security groups here
+          - "{{ bashionSG_out.group_id }}"  # Ensure this variable is defined
         vpc_subnet_id: "{{ pubsub1_id }}"  # Ensure this variable is defined
       register: bashionHost_out
 
 
-    - name: Debug variables
-      debug:
-        msg:
-          - "bashion_ami: {{ bashion_ami }}"
-          - "BastionSG_out.group_id: {{ BastionSG_out.group_id }}"
+
+
 
