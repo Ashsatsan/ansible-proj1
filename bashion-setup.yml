@@ -40,7 +40,7 @@
       debug:
         msg:
           - "bashion_ami: {{ bashion_ami }}"
-          - "bastionSG_out.group_id: {{ bastionSG_out.group_id }}"
+
 
 
     - name: Creating Bashion Host
