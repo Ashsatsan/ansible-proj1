@@ -71,5 +71,5 @@
         path: vars/outputs
         backup: yes
         block: |
-           BastionSGid: {{bastionSG_out.group_id}}
+           BastionSGid: {{ bashionSG_out.group_id }}
         when: bastionSG_out is defined
