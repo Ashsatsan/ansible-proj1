@@ -61,7 +61,12 @@
         vpc_subnet_id: "{{ pubsub1_id }}"  # Ensure this variable is defined
       register: bashionHost_out
 
-    - name: Pasting the bashion sg into the output file
-      copy:
-        content: "bashionSG: {{bashionSG_out.group_id}}"
-        dest: vars/outputs
+
+    - name: Append Bashion SG and Host details to output file
+      lineinfile:
+        path: vars/outputs
+        line: "{{ item }}"
+        create: yes
+      loop:
+        - "bashionSG: {{ bashionSG_out.group_id }}"
+        - "bashionHost: {{ bashionHost_out.instances[0].id }}"

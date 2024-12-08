@@ -142,17 +142,19 @@
         pub_rt_id: "{{ pubRT.route_table.id }}"
         cacheable: yes
 
-    - name: Copying the variables into the file
-      copy:
-        content: |
-          vpc_id: {{ vpcout.vpc.id }}
-          pubsub1_id: {{ pub1out.subnet.id }}
-          pubsub2_id: {{ pub2out.subnet.id }}
-          pubsub3_id: {{ pub3out.subnet.id }}
-          privsub1_id: {{ priv1out.subnet.id }}
-          privsub2_id: {{ priv2out.subnet.id }}
-          privsub3_id: {{ priv3out.subnet.id }}
-          igw_id: {{ igwout.gateway_id }}
-          pub_rt_id: {{ pubRT.route_table.id }}
-        dest: vars/outputs
+    - name: Append VPC and subnet IDs to output file
+      lineinfile:
+        path: vars/outputs
+        line: "{{ item }}"
+        create: yes
+      loop:
+        - "vpc_id: {{ vpcout.vpc.id }}"
+        - "pubsub1_id: {{ pub1out.subnet.id }}"
+        - "pubsub2_id: {{ pub2out.subnet.id }}"
+        - "pubsub3_id: {{ pub3out.subnet.id }}"
+        - "privsub1_id: {{ priv1out.subnet.id }}"
+        - "privsub2_id: {{ priv2out.subnet.id }}"
+        - "privsub3_id: {{ priv3out.subnet.id }}"
+        - "igw_id: {{ igwout.gateway_id }}"
+        - "pub_rt_id: {{ pubRT.route_table.id }}"
 
