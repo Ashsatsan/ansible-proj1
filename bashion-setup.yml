@@ -73,4 +73,3 @@
         create: yes
       loop:
         - "bashionSG_out: {{ bashionSG_out.group_id }}"
-        - "bashionHost_out: {{ bashionHost_out.instances[0].id }}"  # Adjust based on debug output
