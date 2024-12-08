@@ -1,4 +1,4 @@
-bashion_ami: ami-036841078a4b68e14
+bashion_ami: "ami-036841078a4b68e14"
 region: us-east-2
 
 MYIP: 99.237.80.37/32

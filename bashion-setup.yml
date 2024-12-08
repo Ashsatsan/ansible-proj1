@@ -41,7 +41,7 @@
         key_name: bashion_key  # Ensure this matches the created key name
         region: "{{ region }}"  # Ensure the region variable is defined
         instance_type: t2.micro
-        image: "{{ ami-036841078a4b68e14 }}"  # Make sure this AMI ID is valid in the specified region
+        image: "{{  bashion_ami }}"  # Make sure this AMI ID is valid in the specified region
         wait: yes
         wait_timeout: 300
         instance_tags: # Corrected from instance_tag to instance_tags
