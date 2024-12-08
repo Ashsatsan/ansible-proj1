@@ -113,8 +113,9 @@
       register: pubRT
 
 
+
     - debug:
-        var: "{{item}}"
+        msg: "output: {{item}}"
       loop:
         - vpcout.vpc.id
         - pub1out.subnet.id
@@ -124,7 +125,9 @@
         - priv2out.subnet.id
         - priv3out.subnet.id
         - igwout.gateway_id
+        - nat_out.nat_gateway_id
         - pubRT.route_table.id
+        - privRT.route_table.id
 
     - name: Set facts for VPC and Subnet IDs
       set_fact:
@@ -152,4 +155,4 @@
           igw_id: {{ igwout.gateway_id }}
           pub_rt_id: {{ pubRT.route_table.id }}
         dest: vars/outputs
-        mode: '0644'
+
