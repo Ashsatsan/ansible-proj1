@@ -62,9 +62,9 @@
       register: bashionHost_out
 
 
-    - name: Debug bashionHost_out
+    - name: Debug bashionSG_out
       debug:
-        var: bashionHost_out
+        var: bashionSG_out
 
     - name: Append/Update Bashion SG and Host details to output file
       blockinfile:
@@ -72,3 +72,4 @@
         backup: yes
         block: |
            BastionSGid: {{bastionSG_out.group_id}}
+        when: bastionSG_out is defined
