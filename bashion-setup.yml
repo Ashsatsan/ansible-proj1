@@ -66,10 +66,9 @@
       debug:
         var: bashionHost_out
 
-    - name: Append Bashion SG and Host details to output file
-      lineinfile:
+    - name: Append/Update Bashion SG and Host details to output file
+      blockinfile:
         path: vars/outputs
-        line: "{{ item }}"
-        create: yes
-      loop:
-        - "bashionSG_out: {{ bashionSG_out.group_id }}"
+        backup: yes
+        block: |
+           BastionSGid: {{bastionSG_out.group_id}}

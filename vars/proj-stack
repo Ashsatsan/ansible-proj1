@@ -1,4 +1,8 @@
-proj_stack_ami: ami-01ded1b3555ca6177
-region: us-east-2
+nginx_ami: ami-036841078a4b68e14
+tomcat_ami: ami-036841078a4b68e14
+memcache_ami: ami-036841078a4b68e14
+rmq_ami: ami-036841078a4b68e14
+mqsql_ami: ami-036841078a4b68e14
 
-MYIP: 99.237.80.37/32
+
+

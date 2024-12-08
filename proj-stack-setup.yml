@@ -196,7 +196,7 @@
       copy:
         src: stack_key.pem
         dest: provision-stack/login_key.pem
-        mode: 0600
+        mode: '0600'
 
     - name: updating and storing it in the inventory file
       blockfile:
