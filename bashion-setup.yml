@@ -36,6 +36,11 @@
             rule_desc: allow 22 from myip
       register: bashionSG_out
 
+    - name: Print bashion_ami variable
+      debug:
+        msg: "{{ bashion_ami }}"
+
+
     - name: Creating Bashion Host
       amazon.aws.ec2_instance:
         key_name: bashion_key  # Ensure this matches the created key name
