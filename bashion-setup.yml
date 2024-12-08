@@ -42,7 +42,7 @@
 
 
     - name: Creating Bashion Host
-      amazon.aws.ec2_instance:
+      ec2:
         key_name: bashion_key  # Ensure this matches the created key name
         region: "{{region}}"  # Ensure the region variable is defined
         instance_type: t2.micro
@@ -60,3 +60,11 @@
         group_id: "{{ bashionSG_out.group_id }}"  # Ensure this variable is defined
         vpc_subnet_id: "{{ pubsub1_id }}"  # Ensure this variable is defined
       register: bashionHost_out
+
+
+    - name: Debug variables
+      debug:
+        msg:
+          - "bashion_ami: {{ bashion_ami }}"
+          - "BastionSG_out.group_id: {{ BastionSG_out.group_id }}"
+
