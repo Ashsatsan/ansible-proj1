@@ -3,6 +3,3 @@ tomcat_ami: ami-036841078a4b68e14
 memcache_ami: ami-036841078a4b68e14
 rmq_ami: ami-036841078a4b68e14
 mqsql_ami: ami-036841078a4b68e14
-
-
-

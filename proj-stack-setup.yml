@@ -6,7 +6,7 @@
       include_vars: vars/outputs
 
     - name: Importing the bashion variable
-      include_vars: vars/proj_stack
+      include_vars: proj_stack
 
     - name: Create a new EC2 key pair
       ec2_key:
