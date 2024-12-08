@@ -37,22 +37,17 @@
       register: bashionSG_out
 
     - name: Creating Bashion Host
-      amazon.aws.ec2_instance:
-        key_name: bashion_key  # Ensure this matches the created key name
-        region: "{{ region }}"  # Ensure the region variable is defined
+      ec2:
+        key_name: bashion_key
+        region: "{{ region }}"
         instance_type: t2.micro
-        image:
-           image_id: "{{ bashion_ami }}"  # Make sure this AMI ID is valid in the specified region
+        image_id: "{{ bashion_ami }}"
+        vpc_subnet_id: "{{ pubsub1_id }}"
+        security_group_ids:
+          - "{{ bashionSG_out.group_id }}"  # Referencing the security group ID
         wait: yes
         wait_timeout: 300
-        instance_tags: # Corrected from instance_tag to instance_tags
+        tags:
           Name: "Bashion-proj"
           Owner: Devops Team
-        exact_count: 1
-        count_tag:
-          Name: "Bashion-proj"
-          Project: Projans
-          Owner: Devops Team
-        group_id: "{{ bashionSG_out.group_id }}"  # Ensure this variable is defined
-        vpc_subnet_id: "{{ pubsub1_id }}"  # Ensure this variable is defined
       register: bashionHost_out
