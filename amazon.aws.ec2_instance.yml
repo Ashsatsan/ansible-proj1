@@ -10,7 +10,7 @@
       include_vars: vars/bashion
 
     - name: Launch an EC2 instance
-      ec2:
+      ec2_instance:
         image_id: "{{bashion_ami}}"
         instance_type: "t2.micro"
         key_name: "bashion_key"
