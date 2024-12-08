@@ -62,11 +62,15 @@
       register: bashionHost_out
 
 
+    - name: Debug bashionHost_out
+      debug:
+        var: bashionHost_out
+
     - name: Append Bashion SG and Host details to output file
       lineinfile:
         path: vars/outputs
         line: "{{ item }}"
         create: yes
       loop:
-        - "bashionSG: {{ bashionSG_out.group_id }}"
-        - "bashionHost: {{ bashionHost_out.instances[0].id }}"
+        - "bashionSG_out: {{ bashionSG_out.group_id }}"
+        - "bashionHost_out: {{ bashionHost_out.instances[0].id }}"  # Adjust based on debug output
