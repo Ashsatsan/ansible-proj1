@@ -36,9 +36,7 @@
             rule_desc: allow 22 from myip
       register: bashionSG_out
 
-
-
-    - Creating Bashion Host  # Adding "name" field
+    - name: Creating Bashion Host
       ec2:
         key_name: bashion_key  # Ensure this matches the created key name
         region: "{{ region }}"  # Ensure the region variable is defined
