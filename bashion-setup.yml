@@ -7,7 +7,7 @@
       include_vars: vars/outputs
 
     - name: Importing the bashion variable
-      include_vars: vars/bashion
+      include_vars: vars/vpc-setup
 
     - name: Create a new EC2 key pair
       ec2_key:
@@ -44,23 +44,21 @@
       debug:
         msg: "bashion_ami is set to: {{ bashion_ami }}"
 
-    - name: Creating Bashion Host  # Adding "name" field
-      ec2:
+    - name: Creating Bashion Host
+      amazon.aws.ec2_instance:
         key_name: bashion_key  # Ensure this matches the created key name
         region: "{{ region }}"  # Ensure the region variable is defined
         instance_type: t2.micro
-        vpc_subnet_id: "{{ pubsub1_id }}"  # Ensure this variable is defined
-        image_id: "ami-011079f19d63f2405"  # Make sure this AMI ID is valid in the specified region
+        image_id: "{{ bashion_ami }}"  # Make sure this AMI ID is valid in the specified region
         wait: yes
         wait_timeout: 300
-        instance_tags:  # Corrected from instance_tag to instance_tags
+        tags: # Use 'tags' instead of 'instance_tags'
           Name: "Bashion-proj"
-          Owner: Devops
+          Owner: "Devops Team"
         exact_count: 1
-        count_tags:
-          Name: "Bashion-proj"
-          Owner: Devops
-        group_id: "{{ bashionSG_out.group_id }}"  # Ensure this variable is defined
+        security_groups: # Specify your security groups here
+          - "{{ bashionSG_out.group_id }}"  # Ensure this variable is defined
+        vpc_subnet_id: "{{ pubsub1_id }}"  # Ensure this variable is defined
       register: bashionHost_out
 
     - name: Pasting the bashion sg into the output file

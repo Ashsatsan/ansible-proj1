@@ -1,6 +1,6 @@
 vpc_name: "Proj-vpc"
 
-region: us-east-1
+region: us-east-2
 
 vpcCIDR: "172.20.0.0/16"
 
@@ -11,13 +11,13 @@ PRIVSUB1CIDR: "172.20.4.0/24"
 PRIVSUB2CIDR: "172.20.5.0/24"
 PRIVSUB3CIDR: "172.20.6.0/24"
 
-ZONE1: us-east-1a
-ZONE2: us-east-1b
-ZONE3: us-east-1c
+ZONE1: us-east-2a
+ZONE2: us-east-2b
+ZONE3: us-east-2c
 
 state: present
 
-bashion_ami: ami-07ee04759daf109de
-region: us-east-1
+bashion_ami: ami-01ded1b3555ca6177
+region: us-east-2
 
 MYIP: 99.237.80.37/32

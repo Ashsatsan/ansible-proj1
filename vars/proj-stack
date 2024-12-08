@@ -1,4 +1,4 @@
-proj_stack_ami: ami-07ee04759daf109de
-region: us-east-1
+proj_stack_ami: ami-01ded1b3555ca6177
+region: us-east-2
 
 MYIP: 99.237.80.37/32
