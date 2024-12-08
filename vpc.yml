@@ -114,20 +114,6 @@
 
 
 
-    - name: Set up private subnet route table
-      ec2_vpc_route_table:
-        vpc_id: "{{vpcout.vpc.id}}"
-        region: "{{region}}"
-        subnets:
-          - "{{ priv1out.subnet.id }}"
-          - "{{ priv2out.subnet.id }}"
-          - "{{ priv3out.subnet.id }}"
-        routes:
-          - dest: 0.0.0.0/0
-            gateway_id: "{{ nat_out.nat_gateway_id }}"
-        tags:
-          Name: Route table for private subnets
-      register: privRT
 
     - debug:
         msg: "output: {{item}}"
