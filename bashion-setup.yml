@@ -36,15 +36,9 @@
             rule_desc: allow 22 from myip
       register: bashionSG_out
 
-    - name: Debug security group output
-      debug:
-        var: bashionSG_out
 
-    - name: Debug AMI variable
-      debug:
-        msg: "bashion_ami is set to: {{ bashion_ami }}"
 
-    - name: Creating Bashion Host  # Adding "name" field
+    - Creating Bashion Host  # Adding "name" field
       ec2:
         key_name: bashion_key  # Ensure this matches the created key name
         region: "{{ region }}"  # Ensure the region variable is defined
