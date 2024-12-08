@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+
+    - name: Importing the variables file
+      include_vars: vars/outputs
+
+    - name: Importing the bashion variable
+      include_vars: vars/bashion
+
+    - name: Launch an EC2 instance
+      amazon.aws.ec2_instance:
+        image_id: "{{bashion_ami}}"
+        instance_type: "t2.micro"
+        key_name: "bashion_key"
+        region: "us-east-2"
