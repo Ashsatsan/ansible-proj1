@@ -179,17 +179,16 @@
             instance_port: 80
       register: elb_out
 
-
-
     - name: Storing the private key for services in provisioned file
       blockinfile:
         path: provision-stack/group_vars/hostsip
         block: |
-          web_ip: {{ web_out.tagged_instances[0].private_ip }}
-          app_ip: {{ app_out.tagged_instance[0].private_ip }}
-          db_ip: {{ db_out.tagged_instance[0].private_ip }}
-          memcached_ip: {{ memcached_out.tagged_instance[0].private_ip }}
-          rmq_ip: {{ rmq_out.tagged_instance[0].private_ip }}
+          web_ip: {{ web_out.tagged_instances[0].private_ip if web_out.tagged_instances | length > 0 else 'undefined' }}
+          app_ip: {{ app_out.tagged_instance[0].private_ip if app_out.tagged_instance | length > 0 else 'undefined' }}
+          db_ip: {{ db_out.tagged_instance[0].private_ip if db_out.tagged_instance | length > 0 else 'undefined' }}
+          memcached_ip: {{ memcached_out.tagged_instance[0].private_ip if memcached_out.tagged_instance | length > 0 else 'undefined' }}
+          rmq_ip: {{ rmq_out.tagged_instance[0].private_ip if rmq_out.tagged_instance | length > 0 else 'undefined' }}
+     
 
     - name: Copying the login key into the provision_Stack
       copy:
