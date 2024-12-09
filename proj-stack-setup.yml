@@ -179,6 +179,27 @@
             instance_port: 80
       register: elb_out
 
+    - name: Debug web_out
+      debug:
+        var: web_out
+
+    - name: Debug app_out
+      debug:
+        var: app_out
+
+    - name: Debug db_out
+      debug:
+        var: db_out
+
+    - name: Debug memcached_out
+      debug:
+        var: memcached_out
+
+    - name: Debug rmq_out
+      debug:
+        var: rmq_out
+
+
     - name: Storing the private key for services in provisioned file
       blockinfile:
         path: provision-stack/group_vars/hostsip
