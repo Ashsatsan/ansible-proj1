@@ -58,7 +58,7 @@
           - proto: tcp
             from_port: 22
             to_port: 22
-            group_ip: "{{ bashionSG }}"  # Ensure this variable is defined
+            group_id: "{{ bashionSG }}"  # Ensure this variable is defined
             rule_desc: allow 22 to bashion
       register: projSG_out
 
@@ -69,7 +69,7 @@
           - proto: all
             from_port: 0  # Use appropriate port for 'all' protocol
             to_port: 65535  # Use appropriate port for 'all' protocol
-            group_ip: "{{ projSG_out.group_id }}"  # This should be the correct CIDR or internal range
+            group_id: "{{ projSG_out.group_id }}"  # This should be the correct CIDR or internal range
             rule_desc: allow within each other
 
 
