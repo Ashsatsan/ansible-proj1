@@ -34,12 +34,6 @@
             cidr_ip: [0.0.0.0/0]
             rule_desc: allow 80 to anywhere
 
-          - proto: tcp
-            from_port: 22
-            to_port: 22
-            group_id: "{{ bashionSG }}"  # Reference a security group ID
-            rule_desc: allow 22 from bastion
-
       register: elbSG_out
 
     - name: Create security group rule for proj_stack
