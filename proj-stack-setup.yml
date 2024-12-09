@@ -180,16 +180,19 @@
       register: elb_out
 
 
-    - name: Storing the private key for services in provisioned file
+    - name: Storing private IPs of EC2 instances in a provisioned file
       blockinfile:
         path: provision/group_vars/hostip
         block: |
-          web_ip: {{ web_out.tagged_instances[0].private_ip }}
-          app_ip: {{ app_out.tagged_instances[0].private_ip }}
-          db_ip: {{ _out.tagged_instances[0].private_ip }}
-          memcached_ip: {{ memcached_out.tagged_instances[0].private_ip }}
-          rmq_ip: {{ rmq_out.tagged_instances[0].private_ip }}
-     
+          web_ip: "{{ web_out.reservations[0].instances[0].private_ip }}"
+          app_ip: "{{ app_out.reservations[0].instances[0].private_ip }}"
+          db_ip: "{{ db_out.reservations[0].instances[0].private_ip }}"
+          memcached_ip: "{{ memcached_out.reservations[0].instances[0].private_ip }}"
+          rmq_ip: "{{ rmq_out.reservations[0].instances[0].private_ip }}"
+      register: web_out
+      when: web_out.reservations is defined
+
+
 
     - name: Copying the login key into the provision_Stack
       copy:
