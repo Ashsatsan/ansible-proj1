@@ -38,7 +38,7 @@
             from_port: 22
             to_port: 22
             cidr_ip: "{{bashionSG}}"
-        register: elbSG_out
+      register: elbSG_out
 
     - name: Create security group rule for proj_stack
       ec2_group:
