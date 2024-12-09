@@ -165,6 +165,7 @@
     - name: elastic loadbalancer
       elb_classic_lb:
         name: "proj-elb"
+        region: "{{ region }}"
         scheme: internal
         state: present
         instance_ids:
