@@ -66,13 +66,15 @@
     - name: Updating the proj_stack to connect with themselves
       ec2_group:
         name: proj_stack-sg
-        region: "{{ region }}"  # Ensure the region is passed
+        region: "{{ region }}"
         rules:
           - proto: all
-            from_port: -1  # Use -1 for all ports
-            to_port: -1    # Use -1 for all ports
-            group_id: "{{ projSG_out.group_id }}"  # Extract the security group ID from the previous task
-            rule_desc: allow within each other
+            from_port: -1
+            to_port: -1
+            group_id: "{{ projSG_out.group_id }}"  # Reference the correct group ID
+            rule_desc: allow within proj_stack itself  # Adding the missing description
+        description: Allow all traffic within proj_stack  # Required field
+
 
 
            
