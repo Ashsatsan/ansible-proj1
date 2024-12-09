@@ -27,6 +27,11 @@
       when: git_status.changed
       register: mvn_info
 
+    - name: Create files directory if it doesn't exist
+      file:
+        path: "files"
+        state: directory
+
     - name: Copy WAR file to files directory
       copy:
         src: "{{ item }}"
