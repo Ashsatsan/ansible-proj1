@@ -180,6 +180,22 @@
       register: elb_out
 
 
-        
+
+    - name: Storing the private key for services in provisioned file
+      blockfile:
+        path: provision-stack/group_vars/hostsip
+        block: |
+          web_ip: {{ web_out.tagged_instances[0].private_ip }}
+          app_ip: {{ app_out.tagged_instance[0].private_ip }}
+          db_ip: {{ db_out.tagged_instance[0].private_ip }}
+          memccached_ip: {{ memcached_out.tagged_instance[0].private_ip }}
+          rmq_ip: {{ rmq_out.tagged_instance[0].private_ip }}
+
+    - name: Copying the login key into the provision_Stack
+      copy:
+        src: stack_key.pem
+        dest: provision-stack/login_key.pem
+        mode: '0600'
+
     
         
