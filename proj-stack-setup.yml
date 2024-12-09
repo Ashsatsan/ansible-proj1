@@ -168,7 +168,7 @@
         region: "{{ region }}"
         scheme: internal
         state: present
-        instances: "{{ valid_instances }}"  # This should be a list of valid instance IDs
+        instances: "{{ web_outs.instance_ids }}"  # List of instance IDs you want to register with the ELB
         purge_instance_ids: true
         subnets:
           - "{{ pubsub1_id }}"
@@ -178,21 +178,7 @@
             load_balancer_port: 80
             instance_port: 80
       register: elb_out
-      failed_when: elb_out['error']['code'] == 'InvalidInstance'
-      when: "'i-0982c5b0f7bbc78e9' in elb_out['instances'][0]['InstanceId']"
-      tags: [ 'elb' ]
 
-    - set_fact:
-        valid_instances: "{{ valid_instances | default([]) | append(item.InstanceId) }}"
-      when: "'i-0982c5b0f7bbc78e9' in item.InstanceId"
-      loop: "{{ elb_out.instances }}"
-      tags: [ 'elb' ]
-
-    - name: Handle invalid instance registration
-      debug:
-        msg: "Instance {{ 'i-0982c5b0f7bbc78e9' }} is not valid for ELB registration."
-      when: "'i-0982c5b0f7bbc78e9' not in valid_instances"
-      tags: [ 'elb' ]
 
         
     
