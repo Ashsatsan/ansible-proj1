@@ -73,7 +73,7 @@
             to_port: -1
             group_id: "{{ projSG_out.group_id }}"  # Reference the correct group ID
             rule_desc: allow within proj_stack itself  # Adding the missing description
-        description: Allow all traffic within proj_stack  # Required field
+          # Required field
 
 
     - name: Creating RMQ Host  # Adding "name" field
