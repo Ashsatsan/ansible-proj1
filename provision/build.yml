@@ -3,38 +3,38 @@
   connection: local
   become: yes
   tasks:
-    - name: Install jdk. maven, git
+    - name: Install jdk, maven, git
       apt:
-        name: "{{item}}"
+        name: "{{ item }}"
         state: present
         update_cache: yes
       with_items:
-          - git
-          - openjdk-8-jdk
-          - maven
+        - git
+        - openjdk-8-jdk
+        - maven
 
     - name: Clone the git repository
       git:
-        repo: "http://github.com/devopshydclud/vprofile-project.git"
-        dest: ./Vprofile-repo
+        repo: "https://github.com/devopshydclub/vprofile-project.git"
+        dest: "/tmp/Vprofile-repo"
         version: vp-rem
       register: git_status
 
     - name: mvn install command to build artifact
       command: "mvn install"
       args:
-        chdir: Vprofile-repo
+        chdir: "/tmp/Vprofile-repo"
       when: git_status.changed
       register: mvn_info
 
-    - name: mvn install command to file directory
+    - name: Copy WAR file to files directory
       copy:
-        src: "{{item}}"
+        src: "{{ item }}"
         dest: files/ROOT.war
-      with_fileglob: Vprofile-repo/target/*.war
+      with_fileglob:
+        - "/tmp/Vprofile-repo/target/*.war"
 
     - name: Copy SQL file to files directory
       copy:
-        src: Vprofile-repo/src/main/resources/db_backup.sql
+        src: "/tmp/Vprofile-repo/src/main/resources/db_backup.sql"
         dest: files/db_backup.sql
-
