@@ -15,8 +15,8 @@
   tags:
     - conf
 
-handlers:
-  - name: Restart MySQL
-    service:
-      name: mysql
-      state: restarted  # Ensures the MySQL service is restarted to apply changes.
+  handlers:
+   - name: Restart MySQL
+     service:
+       name: mysql
+       state: restarted  # Ensures the MySQL service is restarted to apply changes.
