@@ -179,10 +179,6 @@
             instance_port: 80
       register: elb_out
 
-    - name: Gather EC2 instance facts
-      aws_ec2_instance_facts:
-        region: "{{ region }}"
-      register: web_out
 
     - name: Store private IPs in provisioned file
       blockinfile:
