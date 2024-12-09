@@ -1,0 +1,22 @@
+---
+- name: Creating accounts DB
+  mysql_db:
+    name: "{{dbname}}"  # Ensure '{{dbname}}' is properly defined in your inventory or group_vars file.
+    state: present
+
+- name: Enable remote login to MySQL service
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^bind-address'
+    line: 'bind-address = 0.0.0.0'
+    backup: yes  # Creates a backup of the original file before making changes.
+  notify:
+    - Restart MySQL
+  tags:
+    - conf
+
+handlers:
+  - name: Restart MySQL
+    service:
+      name: mysql
+      state: restarted  # Ensures the MySQL service is restarted to apply changes.

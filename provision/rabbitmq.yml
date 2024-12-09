@@ -1,15 +1,15 @@
 ---
-- name: Install and setup Rabbitmq with user
-  hosts: rmqsrvgrp
+- name: Install and setup RabbitMQ with user
+  hosts: rmqsrvgrp  # Ensure this group includes your RabbitMQ server
   gather_facts: no
   tasks:
-    - name: Install Erland Repository Package
+    - name: Install Erlang Repository Package
       apt:
-        deb: https://package.erlang-solutions.com/erland-solutions_1.0_all.deb
+        deb: https://package.erlang-solutions.com/erlang-solutions_1.0_all.deb
       tags:
         - package
 
-    - name: Add the Erlang Solution to public key
+    - name: Add the Erlang Solution public key
       apt_key:
         url: https://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc
         state: present
@@ -22,21 +22,26 @@
         update_cache: yes
         cache_valid_time: 86400
         state: present
+      tags:
+        - package
 
-    - apt_repository:
+    - name: Add RabbitMQ repository
+      apt_repository:
         repo: deb https://dl.bintray.com/rabbitmq/debian bionic main
         state: present
       tags:
         - package
 
-    - name: Install Rabbitmq MQ
+    - name: Install RabbitMQ Server
       apt:
-        name: rabbit-mq
+        name: rabbitmq-server
         state: present
         update_cache: yes
         cache_valid_time: 86400
+      tags:
+        - package
 
-    - name: StART AND ENABLE RMQ
+    - name: Start and enable RabbitMQ server
       service:
         name: rabbitmq-server
         state: started
@@ -44,26 +49,26 @@
       tags:
         - svc
 
-    - name: Config SETUP
+    - name: Configuration setup
       copy:
         content: |
           [{rabbit, [{loopback_users, []}]}].
         dest: /etc/rabbitmq/rabbitmq.config
       notify:
-        - Restart RMQ
+        - Restart RabbitMQ
       tags:
         - conf
 
-    - rabbitmq-user:
-        user: test
+    - name: Create RabbitMQ user
+      rabbitmq_user:
+        name: test
         password: test
         configure_priv: .*
         read_priv: .*
         write_priv: .*
         tags: administrator
         state: present
-        notify:
-          - Restart RMQ
-        tags:
-          - conf
-
+      notify:
+        - Restart RabbitMQ
+      tags:
+        - conf

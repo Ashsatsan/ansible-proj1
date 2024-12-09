@@ -1,6 +1,6 @@
 ---
 - name: Install Memcache, Start and enable svc
-  hosts: mcsrvgrp
+  hosts: mcsrvgrp  # Ensure this group includes your memcached servers
   gather_facts: no
   tasks:
     - name: Install memcache
@@ -11,27 +11,28 @@
         cache_valid_time: 86400
       tags:
         - package
-    - name: Start and enable the Mwmcache
+
+    - name: Start and enable the memcached service
       service:
         name: memcached
-        state: present
+        state: started
         enabled: yes
       tags:
-       - package
+        - package
 
     - name: Enable remote login to memcached
       lineinfile:
-         path: /etc/memcached.conf
-         regexp: "^-l"
-         line: "-l 0.0.0.0"
-         backup: yes
+        path: /etc/memcached.conf
+        regexp: "^-l"
+        line: "-l 0.0.0.0"
+        backup: yes
       notify:
-       - Restart memcached
+        - Restart memcached
       tags:
-       - conf
+        - conf
 
   handlers:
-     - name: Restart the memcached
-       service:
-         name: memcached
-         state: restarted
+    - name: Restart the memcached service
+      service:
+        name: memcached
+        state: restarted
