@@ -195,16 +195,52 @@
 
 
 
-
-
-
-
     - name: Copying the login key into the provision_Stack
       copy:
         src: stack_key.pem
         dest: provision/login_key.pem
         mode: '0600'
 
+    - name: Updating and storing it in the inventory file
+      blockinfile:
+        path: provision/group_vars/inventory.yml
+        block: |
+          web ansible_host={{ web_out.instances[0].private_ip_address }}
+          app ansible_host={{ app_out.instances[0].private_ip_address }}
+          memcached ansible_host={{ memcached_out.instances[0].private_ip_address }}
+          rmq ansible_host={{ rmq_out.instances[0].private_ip_address }}
+          db ansible_host={{ db_out.instances[0].private_ip_address }}
+          ansible ansible_host={{ ansible_out.instances[0].private_ip_address }}
 
-    
+          [websrvgrp]
+          web
+
+          [appsrvgrp]
+          app
+
+          [memcached]
+          memcached
+
+          [rmqsrvgrp]
+          rmq
+
+          [dbsrvgrp]
+          db
+
+          [ansiblesrvgrp]
+          ansible
+
+          [stack_instance:children]
+          websrvgrp
+          appsrvgrp
+          memcached
+          rmqsrvgrp
+          dbsrvgrp
+          ansiblesrvgrp
+
+          [stack_instance:vars]
+          ansible_user=ubuntu
+          ansible_ssh_private_key_file=stack_key.pem
+          ansible_python_interpreter=/usr/bin/python3
+
         
