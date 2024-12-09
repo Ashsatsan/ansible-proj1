@@ -52,15 +52,16 @@
           - proto: tcp
             from_port: 80
             to_port: 80
-            cidr_ip: "0.0.0.0/0"  # Use string instead of list
+            cidr_ip: "0.0.0.0/0"  # Open to the internet
             rule_desc: allow 80 to anywhere
 
           - proto: tcp
             from_port: 22
             to_port: 22
-            group_id: "{{ bashionSG }}"  # Ensure this variable is defined
-            rule_desc: allow 22 to bashion
+            group_id: "{{ bashionSG }}"  # Correct parameter name
+            rule_desc: allow 22 to bastion
       register: projSG_out
+
 
     - name: Updating the proj_stack to connect with themselves
       ec2_group:
