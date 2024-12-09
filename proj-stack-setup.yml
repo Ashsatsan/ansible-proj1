@@ -169,7 +169,7 @@
       elb_classic_lb:
         name: "proj-elb"
         scheme: internal
-        state: "{{ state }}"
+        state: present
         instance_ids:
           - "{{ web_out.instance_ids }}"
         purge_instance_ids: true
