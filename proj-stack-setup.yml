@@ -179,18 +179,26 @@
             instance_port: 80
       register: elb_out
 
+    - name: Gather EC2 instance facts
+      aws_ec2_instance_facts:
+        region: "{{ region }}"
+      register: web_out
 
-    - name: Storing private IPs of EC2 instances in a provisioned file
+    - name: Store private IPs in provisioned file
       blockinfile:
         path: provision/group_vars/hostip
         block: |
-          web_ip: "{{ web_out.reservations[0].instances[0].private_ip }}"
-          app_ip: "{{ app_out.reservations[0].instances[0].private_ip }}"
-          db_ip: "{{ db_out.reservations[0].instances[0].private_ip }}"
-          memcached_ip: "{{ memcached_out.reservations[0].instances[0].private_ip }}"
-          rmq_ip: "{{ rmq_out.reservations[0].instances[0].private_ip }}"
-      register: web_out
-      when: web_out is defined
+          web_ip: "{{ web_out.instances[0].private_ip }}"
+          app_ip: "{{ app_out.instances[0].private_ip }}"
+          db_ip: "{{ db_out.instances[0].private_ip }}"
+          memcached_ip: "{{ memcached_out.instances[0].private_ip }}"
+          rmq_ip: "{{ rmq_out.instances[0].private_ip }}"
+      when:
+        - web_out is defined
+        - app_out is defined
+        - db_out is defined
+        - memcached_out is defined
+        - rmq_out is defined
 
 
 
