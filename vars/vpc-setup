@@ -15,7 +15,7 @@ ZONE1: us-east-2a
 ZONE2: us-east-2b
 ZONE3: us-east-2c
 
-state: present
+state: "present"
 
 bashion_ami: ami-01ded1b3555ca6177
 region: us-east-2
