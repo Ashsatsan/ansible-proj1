@@ -210,7 +210,7 @@
           memcached ansible_host={{ memcached_out.instances[0].private_ip_address }}
           rmq ansible_host={{ rmq_out.instances[0].private_ip_address }}
           db ansible_host={{ db_out.instances[0].private_ip_address }}
-          ansible ansible_host={{ ansible_out.instances[0].private_ip_address }}
+          control ansible_host=127.0.0.1 ansible_connection=local
 
           [websrvgrp]
           web
@@ -227,8 +227,8 @@
           [dbsrvgrp]
           db
 
-          [ansiblesrvgrp]
-          ansible
+          [controlsrvgrp]
+          control
 
           [stack_instance:children]
           websrvgrp
@@ -236,7 +236,7 @@
           memcached
           rmqsrvgrp
           dbsrvgrp
-          ansiblesrvgrp
+          controlsrvgrp
 
           [stack_instance:vars]
           ansible_user=ubuntu
