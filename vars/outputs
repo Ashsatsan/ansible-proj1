@@ -8,5 +8,4 @@ privsub2_id: subnet-09f9e27aecebfc1d5
 privsub3_id: subnet-0b06ef20241ad97f6
 igw_id: igw-0808f84cdee8d05db
 pub_rt_id: rtb-04d72acb4ae9217a5
-bashionSG_out: sg-08fec2a0ed8ca7f3b
 region: us-east-2
