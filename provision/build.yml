@@ -8,7 +8,7 @@
         name: "{{item}}"
         state: present
         update_cache: yes
-        loop:
+      with_items:
           - git
           - openjdk-8-jdk
           - maven
