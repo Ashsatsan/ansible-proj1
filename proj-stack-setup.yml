@@ -66,11 +66,12 @@
     - name: Updating the proj_stack to connect with themselves
       ec2_group:
         name: proj_stack-sg
+        region: "{{ region }}"  # Ensure the region is passed
         rules:
           - proto: all
-            from_port: 0  # Use appropriate port for 'all' protocol
-            to_port: 65535  # Use appropriate port for 'all' protocol
-            group_id: "{{ projSG_out.group_id }}"  # This should be the correct CIDR or internal range
+            from_port: -1  # Use -1 for all ports
+            to_port: -1    # Use -1 for all ports
+            group_id: "{{ projSG_out.group_id }}"  # Extract the security group ID from the previous task
             rule_desc: allow within each other
 
 
