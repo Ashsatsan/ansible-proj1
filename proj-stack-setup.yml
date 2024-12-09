@@ -190,7 +190,7 @@
           memcached_ip: "{{ memcached_out.reservations[0].instances[0].private_ip }}"
           rmq_ip: "{{ rmq_out.reservations[0].instances[0].private_ip }}"
       register: web_out
-      when: web_out.reservations is defined
+      when: web_out is defined
 
 
 
