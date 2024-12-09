@@ -76,6 +76,90 @@
         description: Allow all traffic within proj_stack  # Required field
 
 
+    - name: Creating RMQ Host  # Adding "name" field
+      amazon.aws.ec2_instance:
+        key_name: stack_key  # Ensure this matches the created key name
+        region: "{{ region }}"  # Ensure the region variable is defined
+        instance_type: t2.micro
+        vpc_subnet_id: "{{ privsub1_id }}"  # Ensure this variable is defined
+        image_id: "{{ rmq_ami }}"  # Make sure this AMI ID is valid in the specified region
+        wait: yes
+        wait_timeout: 300
+        tags: # Use 'tags' instead of 'instance_tags'
+          Name: "rmq"
+          Owner: "Devops"
+        exact_count: 1
+        security_groups: # Specify your security groups here
+          - "{{ projSG_out.group_id }}"  # Ensure this variable is defined
+      register: rmq_out
+
+    - name: Creating web Host for nginx  # Adding "name" field
+      amazon.aws.ec2_instance:
+        key_name: stack_key  # Ensure this matches the created key name
+        region: "{{ region }}"  # Ensure the region variable is defined
+        instance_type: t2.micro
+        vpc_subnet_id: "{{ privsub1_id }}"  # Ensure this variable is defined
+        image_id: "{{ nginx_ami }}"  # Make sure this AMI ID is valid in the specified region
+        wait: yes
+        wait_timeout: 300
+        tags: # Use 'tags' instead of 'instance_tags'
+          Name: "web"
+          Owner: "Devops"
+        exact_count: 1
+        security_groups: # Specify your security groups here
+          - "{{ projSG_out.group_id }}"  # Ensure this variable is defined
+      register: web_out
+
+    - name: Creating db Host  # Adding "name" field
+      amazon.aws.ec2_instance:
+        key_name: stack_key  # Ensure this matches the created key name
+        region: "{{ region }}"  # Ensure the region variable is defined
+        instance_type: t2.micro
+        vpc_subnet_id: "{{ privsub3_id }}"  # Ensure this variable is defined
+        image_id: "{{ proj_stack_ami }}"  # Make sure this AMI ID is valid in the specified region
+        wait: yes
+        wait_timeout: 300
+        tags: # Use 'tags' instead of 'instance_tags'
+          Name: "db"
+          Owner: "Devops"
+        exact_count: 1
+        security_groups: # Specify your security groups here
+          - "{{ projSG_out.group_id }}"  # Ensure this variable is defined
+      register: db_out
+
+    - name: Creating memcache Host  # Adding "name" field
+      amazon.aws.ec2_instance:
+        key_name: stack_key  # Ensure this matches the created key name
+        region: "{{ region }}"  # Ensure the region variable is defined
+        instance_type: t2.micro
+        vpc_subnet_id: "{{ privsub1_id }}"  # Ensure this variable is defined
+        image_id: "{{ memcached_ami }}"  # Make sure this AMI ID is valid in the specified region
+        wait: yes
+        wait_timeout: 300
+        tags: # Use 'tags' instead of 'instance_tags'
+          Name: "memcached"
+          Owner: "Devops"
+        exact_count: 1
+        security_groups: # Specify your security groups here
+          - "{{ projSG_out.group_id }}"  # Ensure this variable is defined
+      register: memcached_out
+
+    - name: Creating tomcat app Host  # Adding "name" field
+      amazon.aws.ec2_instance:
+        key_name: stack_key  # Ensure this matches the created key name
+        region: "{{ region }}"  # Ensure the region variable is defined
+        instance_type: t2.micro
+        vpc_subnet_id: "{{ privsub1_id }}"  # Ensure this variable is defined
+        image_id: "{{ app_ami }}"  # Make sure this AMI ID is valid in the specified region
+        wait: yes
+        wait_timeout: 300
+        tags: # Use 'tags' instead of 'instance_tags'
+          Name: "app"
+          Owner: "Devops"
+        exact_count: 1
+        security_groups: # Specify your security groups here
+          - "{{ projSG_out.group_id }}"  # Ensure this variable is defined
+      register: app_out
 
            
           
