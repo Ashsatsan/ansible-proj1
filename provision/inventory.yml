@@ -1,0 +1,39 @@
+# BEGIN ANSIBLE MANAGED BLOCK
+web ansible_host=172.20.4.50
+app ansible_host=172.20.4.133
+memcached ansible_host=172.20.4.11
+rmq ansible_host=172.20.4.101
+db ansible_host=172.20.4.190
+control ansible_host=127.0.0.1 ansible_connection=local
+
+[websrvgrp]
+web
+
+[appsrvgrp]
+app
+
+[memcached]
+memcached
+
+[rmqsrvgrp]
+rmq
+
+[dbsrvgrp]
+db
+
+[controlsrvgrp]
+control
+
+[stack_instance:children]
+websrvgrp
+appsrvgrp
+memcached
+rmqsrvgrp
+dbsrvgrp
+controlsrvgrp
+
+[stack_instance:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=stack_key.pem
+ansible_python_interpreter=/usr/bin/python3
+# END ANSIBLE MANAGED BLOCK
