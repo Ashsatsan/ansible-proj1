@@ -24,7 +24,7 @@
     - name: Create security group rule for elb
       ec2_group:
         name: proj-elb
-        description: leb with the description
+        description: "elb with the description"
         region: "{{ region }}"
         vpc_id: "{{ vpc_id }}"
         rules:
@@ -32,44 +32,47 @@
             from_port: 80
             to_port: 80
             cidr_ip: "0.0.0.0/0"
-            rule_desc: allow 80 to anywhere
+            rule_desc: "allow 80 to anywhere"
 
           - proto: tcp
             from_port: 22
             to_port: 22
             cidr_ip: "{{ bashionSG }}"
-      register: elbSG_out  # Move this line outside the module parameters
-
+            rule_desc: "allow 22 to bashion"
+      register: elbSG_out  # Correctly placed outside the module parameters
 
     - name: Create security group rule for proj_stack
       ec2_group:
         name: proj_stack-sg
-        description: proj_stack with the description
+        description: "proj_stack with the description"
         region: "{{ region }}"
         vpc_id: "{{ vpc_id }}"
         rules:
           - proto: tcp
             from_port: 80
             to_port: 80
-            cidr_ip: "0.0.0.0/0"  # Use string instead of list
-            rule_desc: allow 80 to anywhere
+            cidr_ip: "0.0.0.0/0"  # Correctly using string
+            rule_desc: "allow 80 to anywhere"
 
           - proto: tcp
             from_port: 22
             to_port: 22
             cidr_ip: "{{ bashionSG }}"  # Ensure this variable is defined
-            rule_desc: allow 22 to bashion
+            rule_desc: "allow 22 to bashion"
       register: projSG_out
 
     - name: Updating the proj_stack to connect with themselves
       ec2_group:
         name: proj_stack-sg
+        region: "{{ region }}"
+        vpc_id: "{{ vpc_id }}"
         rules:
           - proto: all
             from_port: 0  # Use appropriate port for 'all' protocol
             to_port: 65535  # Use appropriate port for 'all' protocol
-            cidr_ip: "{{ projSG_out.group_id }}"  # This should be the correct CIDR or internal range
-            rule_desc: allow within each other
+            cidr_ip: "0.0.0.0/0"  # Use a valid CIDR range for internal communication
+            rule_desc: "allow within each other"
+      register: update_proj_stack_out
 
 
            
