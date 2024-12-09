@@ -185,7 +185,7 @@
 
     - name: Storing the private key for services in provisioned file
       blockinfile:
-        path: provision-stack/group_vars/hostip
+        path: provision/group_vars/hostip
         block: |
           web_ip: {{ web_out.instance_ids[0].private_ip_address }}
           app_ip: {{ app_out.instance_ids[0].private_ip_address }}
