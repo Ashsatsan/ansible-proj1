@@ -40,10 +40,10 @@
             cidr_ip: "{{bashionSG}}"
         register: elbSG_out
 
-    - name: Create security group rule for proj-stack
+    - name: Create security group rule for proj_stack
       ec2_group:
-        name: proj-stack-sg
-        description: proj-stack with the description
+        name: proj_stack-sg
+        description: proj_stack with the description
         region: "{{ region }}"
         vpc_id: "{{ vpc_id }}"
         rules:
@@ -60,9 +60,9 @@
             rule_desc: allow 22 to bashion
       register: projSG_out
 
-    - name: Updating the proj-stack to connect with themselves
+    - name: Updating the proj_stack to connect with themselves
       ec2_group:
-        name: proj-stack-sg
+        name: proj_stack-sg
         rules:
           - proto: all
             from_port: 0  # Use appropriate port for 'all' protocol
