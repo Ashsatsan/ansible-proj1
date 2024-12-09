@@ -203,7 +203,7 @@
 
     - name: Updating and storing it in the inventory file
       blockinfile:
-        path: provision/group_vars/inventory.yml
+        path: provision/inventory.yml
         block: |
           web ansible_host={{ web_out.instances[0].private_ip_address }}
           app ansible_host={{ app_out.instances[0].private_ip_address }}
