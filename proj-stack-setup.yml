@@ -179,42 +179,22 @@
             instance_port: 80
       register: elb_out
 
-    - name: Debug web_out
-      debug:
-        var: web_out
-
-    - name: Debug app_out
-      debug:
-        var: app_out
-
-    - name: Debug db_out
-      debug:
-        var: db_out
-
-    - name: Debug memcached_out
-      debug:
-        var: memcached_out
-
-    - name: Debug rmq_out
-      debug:
-        var: rmq_out
-
 
     - name: Storing the private key for services in provisioned file
       blockinfile:
         path: provision/group_vars/hostip
         block: |
           web_ip: {{ web_out.tagged_instances[0].private_ip }}
-          app_ip: {{ app_out.tagged_instance[0].private_ip }}
-          db_ip: {{ _out.tagged_instance[0].private_ip }}
-          memcached_ip: {{ memcached_out.tagged_instance[0].private_ip }}
-          rmq_ip: {{ rmq_out.tagged_instance[0].private_ip }}
+          app_ip: {{ app_out.tagged_instances[0].private_ip }}
+          db_ip: {{ _out.tagged_instances[0].private_ip }}
+          memcached_ip: {{ memcached_out.tagged_instances[0].private_ip }}
+          rmq_ip: {{ rmq_out.tagged_instances[0].private_ip }}
      
 
     - name: Copying the login key into the provision_Stack
       copy:
         src: stack_key.pem
-        dest: provision-stack/login_key.pem
+        dest: provision/login_key.pem
         mode: '0600'
 
 
