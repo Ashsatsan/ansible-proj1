@@ -161,9 +161,6 @@
           - "{{ projSG_out.group_id }}"  # Ensure this variable is defined
       register: app_out
 
-    - name: Debug state variable
-      debug:
-        msg: "The state variable is set to: {{ state }"
 
     - name: elastic loadbalancer
       elb_classic_lb:
