@@ -168,7 +168,7 @@
         region: "{{ region }}"
         scheme: internal
         state: present
-        instances: "{{ web_out.instance_ids }}"  # List of instance IDs you want to register with the ELB
+        instance_ids: "{{ web_out.instance_ids }}"  # List of instance IDs you want to register with the ELB
         purge_instance_ids: true
         subnets:
           - "{{ pubsub1_id }}"
