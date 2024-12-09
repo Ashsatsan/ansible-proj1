@@ -11,5 +11,5 @@
           {{ web_ip }} web
           {{ app_ip }} app
           {{ rmq_ip }} rmq
-          {{ memcached_ip }} memchached
+          {{ memcached_ip }} memcached
           {{ db_ip }} db
