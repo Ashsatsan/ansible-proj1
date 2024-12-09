@@ -187,11 +187,11 @@
       blockinfile:
         path: provision-stack/group_vars/hostip
         block: |
-          web_ip: {{ web_out.instance_ids[0].private_ip }}
-          app_ip: {{ app_out.instance_ids[0].private_ip }}
-          db_ip: {{ db_out.instance_ids[0].private_ip }}
-          memcached_ip: {{ memcached_out.instance.ids[0].private_ip }}
-          rmq_ip: {{ rmq_out.instance_ids[0].private_ip }}
+          web_ip: {{ web_out.instance_ids[0].private_ip_address }}
+          app_ip: {{ app_out.instance_ids[0].private_ip_address }}
+          db_ip: {{ db_out.instance_ids[0].private_ip_address }}
+          memcached_ip: {{ memcached_out.instance.ids[0].private_ip_address }}
+          rmq_ip: {{ rmq_out.instance_ids[0].private_ip_address }}
 
 
 
