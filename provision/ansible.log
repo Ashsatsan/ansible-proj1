@@ -1,0 +1,152 @@
+2024-12-09 11:23:08,043 p=1804 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 11:23:08,200 p=1804 u=ubuntu n=ansible | PLAY [Generate artifact, copy artifacts @ sql file to files directory] ***************************************************************
+2024-12-09 11:23:08,209 p=1804 u=ubuntu n=ansible | TASK [Gathering Facts] ***************************************************************************************************************
+2024-12-09 11:23:09,450 p=1804 u=ubuntu n=ansible | ok: [localhost]
+2024-12-09 11:23:09,463 p=1804 u=ubuntu n=ansible | TASK [Install jdk. maven, git] *******************************************************************************************************
+2024-12-09 11:23:09,475 p=1804 u=ubuntu n=ansible | fatal: [localhost]: FAILED! => {"msg": "The task includes an option with an undefined variable. The error was: 'item' is undefined. 'item' is undefined\n\nThe error appears to be in '/home/ubuntu/ansible-proj1/provision/build.yml': line 6, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n  tasks:\n    - name: Install jdk. maven, git\n      ^ here\n"}
+2024-12-09 11:23:09,476 p=1804 u=ubuntu n=ansible | PLAY RECAP ***************************************************************************************************************************
+2024-12-09 11:23:09,476 p=1804 u=ubuntu n=ansible | localhost                  : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-12-09 11:25:44,806 p=1918 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 11:25:44,957 p=1918 u=ubuntu n=ansible | PLAY [Generate artifact, copy artifacts @ sql file to files directory] ***************************************************************
+2024-12-09 11:25:44,963 p=1918 u=ubuntu n=ansible | TASK [Gathering Facts] ***************************************************************************************************************
+2024-12-09 11:25:46,009 p=1918 u=ubuntu n=ansible | ok: [localhost]
+2024-12-09 11:25:46,022 p=1918 u=ubuntu n=ansible | TASK [Install jdk. maven, git] *******************************************************************************************************
+2024-12-09 11:25:46,035 p=1918 u=ubuntu n=ansible | fatal: [localhost]: FAILED! => {"msg": "The task includes an option with an undefined variable. The error was: 'item' is undefined. 'item' is undefined\n\nThe error appears to be in '/home/ubuntu/ansible-proj1/provision/build.yml': line 6, column 7, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n  tasks:\n    - name: Install jdk. maven, git\n      ^ here\n"}
+2024-12-09 11:25:46,036 p=1918 u=ubuntu n=ansible | PLAY RECAP ***************************************************************************************************************************
+2024-12-09 11:25:46,036 p=1918 u=ubuntu n=ansible | localhost                  : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-12-09 11:26:05,727 p=2037 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 11:26:05,883 p=2037 u=ubuntu n=ansible | PLAY [Generate artifact, copy artifacts @ sql file to files directory] ***************************************************************
+2024-12-09 11:26:05,889 p=2037 u=ubuntu n=ansible | TASK [Gathering Facts] ***************************************************************************************************************
+2024-12-09 11:26:06,938 p=2037 u=ubuntu n=ansible | ok: [localhost]
+2024-12-09 11:26:06,950 p=2037 u=ubuntu n=ansible | TASK [Install jdk. maven, git] *******************************************************************************************************
+2024-12-09 11:26:21,837 p=2037 u=ubuntu n=ansible | ok: [localhost] => (item=git)
+2024-12-09 11:27:04,644 p=2037 u=ubuntu n=ansible | changed: [localhost] => (item=openjdk-8-jdk)
+2024-12-09 11:27:13,711 p=2037 u=ubuntu n=ansible | changed: [localhost] => (item=maven)
+2024-12-09 11:27:13,725 p=2037 u=ubuntu n=ansible | TASK [Clone the git repository] ******************************************************************************************************
+2024-12-09 11:27:42,501 p=2037 u=ubuntu n=ansible | fatal: [localhost]: FAILED! => {"changed": false, "cmd": "/usr/bin/git ls-remote http://github.com/devopshydclud/vprofile-project.git -h refs/heads/vp-rem", "msg": "remote: Repository not found.\nfatal: repository 'https://github.com/devopshydclud/vprofile-project.git/' not found", "rc": 128, "stderr": "remote: Repository not found.\nfatal: repository 'https://github.com/devopshydclud/vprofile-project.git/' not found\n", "stderr_lines": ["remote: Repository not found.", "fatal: repository 'https://github.com/devopshydclud/vprofile-project.git/' not found"], "stdout": "", "stdout_lines": []}
+2024-12-09 11:27:42,503 p=2037 u=ubuntu n=ansible | PLAY RECAP ***************************************************************************************************************************
+2024-12-09 11:27:42,503 p=2037 u=ubuntu n=ansible | localhost                  : ok=2    changed=1    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-12-09 11:32:07,255 p=5530 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 11:32:07,718 p=5530 u=ubuntu n=ansible | PLAY [Generate artifact, copy artifacts @ sql file to files directory] ***************************************************************
+2024-12-09 11:32:07,737 p=5530 u=ubuntu n=ansible | TASK [Gathering Facts] ***************************************************************************************************************
+2024-12-09 11:32:08,934 p=5530 u=ubuntu n=ansible | ok: [localhost]
+2024-12-09 11:32:08,947 p=5530 u=ubuntu n=ansible | TASK [Install jdk, maven, git] *******************************************************************************************************
+2024-12-09 11:32:11,190 p=5530 u=ubuntu n=ansible | ok: [localhost] => (item=git)
+2024-12-09 11:32:13,316 p=5530 u=ubuntu n=ansible | ok: [localhost] => (item=openjdk-8-jdk)
+2024-12-09 11:32:15,408 p=5530 u=ubuntu n=ansible | ok: [localhost] => (item=maven)
+2024-12-09 11:32:15,417 p=5530 u=ubuntu n=ansible | TASK [Clone the git repository] ******************************************************************************************************
+2024-12-09 11:32:20,779 p=5530 u=ubuntu n=ansible | changed: [localhost]
+2024-12-09 11:32:20,786 p=5530 u=ubuntu n=ansible | TASK [mvn install command to build artifact] *****************************************************************************************
+2024-12-09 11:32:59,387 p=5530 u=ubuntu n=ansible | changed: [localhost]
+2024-12-09 11:32:59,418 p=5530 u=ubuntu n=ansible | TASK [Copy WAR file to files directory] **********************************************************************************************
+2024-12-09 11:33:00,704 p=5530 u=ubuntu n=ansible | failed: [localhost] (item=/tmp/Vprofile-repo/target/vprofile-v2.war) => {"ansible_loop_var": "item", "changed": false, "checksum": "f5e0ef9b22579424b98185eefa069611f547e0b4", "item": "/tmp/Vprofile-repo/target/vprofile-v2.war", "msg": "Destination directory files does not exist"}
+2024-12-09 11:33:00,708 p=5530 u=ubuntu n=ansible | PLAY RECAP ***************************************************************************************************************************
+2024-12-09 11:33:00,709 p=5530 u=ubuntu n=ansible | localhost                  : ok=4    changed=2    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-12-09 11:52:37,240 p=6797 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 11:52:37,730 p=6797 u=ubuntu n=ansible | PLAY [Generate artifact, copy artifacts @ sql file to files directory] ***************************************************************
+2024-12-09 11:52:37,748 p=6797 u=ubuntu n=ansible | TASK [Gathering Facts] ***************************************************************************************************************
+2024-12-09 11:52:38,984 p=6797 u=ubuntu n=ansible | ok: [localhost]
+2024-12-09 11:52:38,998 p=6797 u=ubuntu n=ansible | TASK [Install jdk, maven, git] *******************************************************************************************************
+2024-12-09 11:52:41,710 p=6797 u=ubuntu n=ansible | ok: [localhost] => (item=git)
+2024-12-09 11:52:43,794 p=6797 u=ubuntu n=ansible | ok: [localhost] => (item=openjdk-8-jdk)
+2024-12-09 11:52:45,861 p=6797 u=ubuntu n=ansible | ok: [localhost] => (item=maven)
+2024-12-09 11:52:45,869 p=6797 u=ubuntu n=ansible | TASK [Clone the git repository] ******************************************************************************************************
+2024-12-09 11:52:46,703 p=6797 u=ubuntu n=ansible | ok: [localhost]
+2024-12-09 11:52:46,710 p=6797 u=ubuntu n=ansible | TASK [mvn install command to build artifact] *****************************************************************************************
+2024-12-09 11:52:46,723 p=6797 u=ubuntu n=ansible | skipping: [localhost]
+2024-12-09 11:52:46,728 p=6797 u=ubuntu n=ansible | TASK [Create files directory if it doesn't exist] ************************************************************************************
+2024-12-09 11:52:47,083 p=6797 u=ubuntu n=ansible | changed: [localhost]
+2024-12-09 11:52:47,090 p=6797 u=ubuntu n=ansible | TASK [Copy WAR file to files directory] **********************************************************************************************
+2024-12-09 11:52:48,071 p=6797 u=ubuntu n=ansible | changed: [localhost] => (item=/tmp/Vprofile-repo/target/vprofile-v2.war)
+2024-12-09 11:52:48,076 p=6797 u=ubuntu n=ansible | TASK [Copy SQL file to files directory] **********************************************************************************************
+2024-12-09 11:52:48,534 p=6797 u=ubuntu n=ansible | changed: [localhost]
+2024-12-09 11:52:48,551 p=6797 u=ubuntu n=ansible | PLAY RECAP ***************************************************************************************************************************
+2024-12-09 11:52:48,551 p=6797 u=ubuntu n=ansible | localhost                  : ok=6    changed=3    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+2024-12-09 11:55:16,886 p=8011 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 11:55:17,041 p=8011 u=ubuntu n=ansible | PLAY [Set host to IP mapping in /etc/hosts file of all the instances] ****************************************************************
+2024-12-09 11:55:17,048 p=8011 u=ubuntu n=ansible | TASK [Gathering Facts] ***************************************************************************************************************
+2024-12-09 11:55:17,108 p=8011 u=ubuntu n=ansible | ERROR! failed to combine variables, expected dicts but got a 'dict' and a 'AnsibleUnicode': 
+{}
+"dbname = accounts dbuser = admin dbpass = admin123"
+2024-12-09 12:01:53,206 p=8048 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 12:01:53,355 p=8048 u=ubuntu n=ansible | PLAY [Set host to IP mapping in /etc/hosts file of all the instances] ****************************************************************
+2024-12-09 12:01:53,362 p=8048 u=ubuntu n=ansible | TASK [Gathering Facts] ***************************************************************************************************************
+2024-12-09 12:01:53,418 p=8048 u=ubuntu n=ansible | ERROR! failed to combine variables, expected dicts but got a 'dict' and a 'AnsibleUnicode': 
+{}
+"dbname = accounts dbuser = admin dbpass = admin123"
+2024-12-09 12:03:40,461 p=8073 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 12:03:40,611 p=8073 u=ubuntu n=ansible | PLAY [Set host to IP mapping in /etc/hosts file of all the instances] ****************************************************************
+2024-12-09 12:03:40,618 p=8073 u=ubuntu n=ansible | TASK [Gathering Facts] ***************************************************************************************************************
+2024-12-09 12:03:40,673 p=8073 u=ubuntu n=ansible | ERROR! failed to combine variables, expected dicts but got a 'dict' and a 'AnsibleUnicode': 
+{}
+"dbname = accounts dbuser = admin dbpass = admin123"
+2024-12-09 12:06:16,716 p=8102 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 12:06:16,866 p=8102 u=ubuntu n=ansible | PLAY [Set host to IP mapping in /etc/hosts file of all the instances] ****************************************************************
+2024-12-09 12:06:16,873 p=8102 u=ubuntu n=ansible | TASK [Gathering Facts] ***************************************************************************************************************
+2024-12-09 12:06:16,943 p=8102 u=ubuntu n=ansible | ERROR! failed to combine variables, expected dicts but got a 'dict' and a 'AnsibleUnicode': 
+{}
+"dbname = accounts dbuser = admin dbpass = admin123"
+2024-12-09 12:07:26,273 p=8126 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 12:07:26,426 p=8126 u=ubuntu n=ansible | PLAY [Set host to IP mapping in /etc/hosts file of all the instances] ****************************************************************
+2024-12-09 12:07:26,432 p=8126 u=ubuntu n=ansible | TASK [Gathering Facts] ***************************************************************************************************************
+2024-12-09 12:07:26,492 p=8126 u=ubuntu n=ansible | ERROR! failed to combine variables, expected dicts but got a 'dict' and a 'AnsibleUnicode': 
+{}
+"dbname = accounts dbuser = admin dbpass = admin123"
+2024-12-09 12:08:30,863 p=8151 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 12:08:31,014 p=8151 u=ubuntu n=ansible | PLAY [Set host to IP mapping in /etc/hosts file of all the instances] ****************************************************************
+2024-12-09 12:08:31,021 p=8151 u=ubuntu n=ansible | TASK [Gathering Facts] ***************************************************************************************************************
+2024-12-09 12:09:17,129 p=8151 u=ubuntu n=ansible | fatal: [web]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.20.4.50 port 22: Connection timed out", "unreachable": true}
+2024-12-09 12:09:17,147 p=8151 u=ubuntu n=ansible | fatal: [app]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.20.4.133 port 22: Connection timed out", "unreachable": true}
+2024-12-09 12:09:17,154 p=8151 u=ubuntu n=ansible | fatal: [memcached]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.20.4.11 port 22: Connection timed out", "unreachable": true}
+2024-12-09 12:09:17,166 p=8151 u=ubuntu n=ansible | fatal: [rmq]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.20.4.101 port 22: Connection timed out", "unreachable": true}
+2024-12-09 12:09:17,171 p=8151 u=ubuntu n=ansible | fatal: [db]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.20.4.190 port 22: Connection timed out", "unreachable": true}
+2024-12-09 12:09:18,179 p=8151 u=ubuntu n=ansible | ok: [control]
+2024-12-09 12:09:18,193 p=8151 u=ubuntu n=ansible | TASK [Import VPC setup variable] *****************************************************************************************************
+2024-12-09 12:09:18,207 p=8151 u=ubuntu n=ansible | ok: [control]
+2024-12-09 12:09:18,212 p=8151 u=ubuntu n=ansible | TASK [Update hosts file for all the hosts] *******************************************************************************************
+2024-12-09 12:09:18,548 p=8151 u=ubuntu n=ansible | changed: [control]
+2024-12-09 12:09:18,566 p=8151 u=ubuntu n=ansible | PLAY RECAP ***************************************************************************************************************************
+2024-12-09 12:09:18,566 p=8151 u=ubuntu n=ansible | app                        : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-12-09 12:09:18,566 p=8151 u=ubuntu n=ansible | control                    : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-12-09 12:09:18,567 p=8151 u=ubuntu n=ansible | db                         : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-12-09 12:09:18,567 p=8151 u=ubuntu n=ansible | memcached                  : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-12-09 12:09:18,567 p=8151 u=ubuntu n=ansible | rmq                        : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-12-09 12:09:18,567 p=8151 u=ubuntu n=ansible | web                        : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-12-09 14:18:16,530 p=8776 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 14:18:16,680 p=8776 u=ubuntu n=ansible | PLAY [Set host to IP mapping in /etc/hosts file of all the instances] **********
+2024-12-09 14:18:16,688 p=8776 u=ubuntu n=ansible | TASK [Gathering Facts] *********************************************************
+2024-12-09 14:19:02,809 p=8776 u=ubuntu n=ansible | fatal: [web]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.20.4.50 port 22: Connection timed out", "unreachable": true}
+2024-12-09 14:19:02,819 p=8776 u=ubuntu n=ansible | fatal: [memcached]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.20.4.11 port 22: Connection timed out", "unreachable": true}
+2024-12-09 14:19:02,825 p=8776 u=ubuntu n=ansible | fatal: [app]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.20.4.133 port 22: Connection timed out", "unreachable": true}
+2024-12-09 14:19:02,840 p=8776 u=ubuntu n=ansible | fatal: [rmq]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.20.4.101 port 22: Connection timed out", "unreachable": true}
+2024-12-09 14:19:02,846 p=8776 u=ubuntu n=ansible | fatal: [db]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.20.4.190 port 22: Connection timed out", "unreachable": true}
+2024-12-09 14:19:03,868 p=8776 u=ubuntu n=ansible | ok: [control]
+2024-12-09 14:19:03,883 p=8776 u=ubuntu n=ansible | TASK [Import VPC setup variable] ***********************************************
+2024-12-09 14:19:03,895 p=8776 u=ubuntu n=ansible | ok: [control]
+2024-12-09 14:19:03,900 p=8776 u=ubuntu n=ansible | TASK [Update hosts file for all the hosts] *************************************
+2024-12-09 14:19:04,237 p=8776 u=ubuntu n=ansible | ok: [control]
+2024-12-09 14:19:04,253 p=8776 u=ubuntu n=ansible | PLAY RECAP *********************************************************************
+2024-12-09 14:19:04,254 p=8776 u=ubuntu n=ansible | app                        : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-12-09 14:19:04,254 p=8776 u=ubuntu n=ansible | control                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-12-09 14:19:04,254 p=8776 u=ubuntu n=ansible | db                         : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-12-09 14:19:04,254 p=8776 u=ubuntu n=ansible | memcached                  : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-12-09 14:19:04,254 p=8776 u=ubuntu n=ansible | rmq                        : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-12-09 14:19:04,254 p=8776 u=ubuntu n=ansible | web                        : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2024-12-09 14:24:33,404 p=8955 u=ubuntu n=ansible | [WARNING]: Found both group and host with same name: memcached
+
+2024-12-09 14:24:33,555 p=8955 u=ubuntu n=ansible | PLAY [Set host to IP mapping in /etc/hosts file of all the instances] ****************************************************************
+2024-12-09 14:24:33,563 p=8955 u=ubuntu n=ansible | TASK [Gathering Facts] ***************************************************************************************************************
+2024-12-09 14:24:39,992 p=8955 u=ubuntu n=ansible |  [ERROR]: User interrupted execution
+
