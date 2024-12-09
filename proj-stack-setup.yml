@@ -162,7 +162,22 @@
       register: app_out
 
            
-          
+    - name: elastic loadbalancer
+      elb_classic_lb:
+        name: "proj-elb"
+        scheme: internal
+        state: "{{ state }}"
+        instance_ids:
+          - "{{ web_out.instance_ids }}"
+        purge_instance_ids: true
+        subnets:
+          - "{{ pubsub1_id }}"
+          - "{{ pubsub2_id }}"
+        listeners:
+          - protocol: http
+            load_balancer_port: 80
+            instance_port: 80
+
         
     
         
