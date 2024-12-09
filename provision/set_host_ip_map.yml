@@ -2,7 +2,7 @@
   hosts: all
   tasks:
     - name: Import VPC setup variable
-      include_vars: group_vars/hostip
+      include_vars: group_vars/host_ips
 
     - name: Update hosts file for all the hosts
       blockinfile:
