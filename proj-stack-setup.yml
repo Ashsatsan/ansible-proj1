@@ -115,8 +115,8 @@
         key_name: stack_key  # Ensure this matches the created key name
         region: "{{ region }}"  # Ensure the region variable is defined
         instance_type: t2.micro
-        vpc_subnet_id: "{{ privsub3_id }}"  # Ensure this variable is defined
-        image_id: "{{ proj_stack_ami }}"  # Make sure this AMI ID is valid in the specified region
+        vpc_subnet_id: "{{ privsub1_id }}"  # Ensure this variable is defined
+        image_id: "{{ mqsql_ami }}"  # Make sure this AMI ID is valid in the specified region
         wait: yes
         wait_timeout: 300
         tags: # Use 'tags' instead of 'instance_tags'
@@ -150,7 +150,7 @@
         region: "{{ region }}"  # Ensure the region variable is defined
         instance_type: t2.micro
         vpc_subnet_id: "{{ privsub1_id }}"  # Ensure this variable is defined
-        image_id: "{{ app_ami }}"  # Make sure this AMI ID is valid in the specified region
+        image_id: "{{ tomcat_ami }}"  # Make sure this AMI ID is valid in the specified region
         wait: yes
         wait_timeout: 300
         tags: # Use 'tags' instead of 'instance_tags'
