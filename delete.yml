@@ -1,0 +1,5 @@
+- name: Delete the existing proj_stack security group
+  ec2_group:
+    name: proj_stack-sg
+    region: "{{ region }}"
+    state: absent
