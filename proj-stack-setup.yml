@@ -133,7 +133,7 @@
         region: "{{ region }}"  # Ensure the region variable is defined
         instance_type: t2.micro
         vpc_subnet_id: "{{ privsub1_id }}"  # Ensure this variable is defined
-        image_id: "{{ memcached_ami }}"  # Make sure this AMI ID is valid in the specified region
+        image_id: "{{ memcache_ami }}"  # Make sure this AMI ID is valid in the specified region
         wait: yes
         wait_timeout: 300
         tags: # Use 'tags' instead of 'instance_tags'
