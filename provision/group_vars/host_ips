@@ -3,3 +3,10 @@ app_ip: 172.20.4.133
 db_ip: 172.20.4.190
 memcached_ip: 172.20.4.11
 rmq_ip: 172.20.4.101
+# BEGIN ANSIBLE MANAGED BLOCK
+web_ip: 172.20.4.186
+app_ip: 172.20.4.18
+db_ip: 172.20.4.96
+memcached_ip: 172.20.4.49
+rmq_ip: 172.20.4.78
+# END ANSIBLE MANAGED BLOCK
