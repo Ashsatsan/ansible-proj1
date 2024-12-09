@@ -37,7 +37,7 @@
           - proto: tcp
             from_port: 22
             to_port: 22
-            security_group: "{{ bashionSG }}"  # Reference a security group ID
+            group_id: "{{ bashionSG }}"  # Reference a security group ID
             rule_desc: allow 22 from bastion
 
       register: elbSG_out
